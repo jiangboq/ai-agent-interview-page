@@ -276,19 +276,18 @@
 
   <main>
     <span class="eyebrow">Project Docs</span>
-    <h1>AI Agent Interview Page</h1>
+    <h1>AI Agent Interview Technical Documentation</h1>
 
     <section id="overview">
       <h2>Overview</h2>
       <p>
-        This project is a static, single-page site describing the goals, setup, and usage
-        of the AI Agent Interview Page. Replace the placeholder copy in each section below
-        with details specific to your project.
+        AI Agent Interview System is an AI-powered interview platform built as a multi-service application. It combines a Next.js 14
+  frontend (apps/web) with a FastAPI backend (apps/api) backed by Postgres (with pgvector) and MongoDB, plus a LiveKit 
+  voice agent worker (services/voice-agent) that handles real-time voice interviews. OpenAI powers the AI features —
+  resume/JD parsing, embeddings, and interview scoring. The whole stack is orchestrated via Docker Compose, with a 
+  one-shot migration runner (infra/docker/postgres) that applies versioned Postgres schema migrations automatically
+  before the API starts.
       </p>
-      <div class="callout">
-        This is a starter documentation template — edit <code>index.html</code> to
-        fill in real project details, then commit and push to update the live page.
-      </div>
     </section>
 
     <section id="features">
