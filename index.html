@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Agent Interview Page — Docs</title>
+<meta name="description" content="Documentation for the AI Agent Interview Page project." />
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-subtle: #f6f7f9;
+    --text: #1c1e21;
+    --text-muted: #5b6270;
+    --border: #e4e6ea;
+    --accent: #4f46e5;
+    --accent-soft: #eef0fd;
+    --code-bg: #f2f3f7;
+    --shadow: 0 1px 2px rgba(16, 18, 27, 0.04), 0 4px 16px rgba(16, 18, 27, 0.04);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14151a;
+      --bg-subtle: #1b1c22;
+      --text: #eceef2;
+      --text-muted: #9ba0ac;
+      --border: #2a2c34;
+      --accent: #8b85f6;
+      --accent-soft: #211f3a;
+      --code-bg: #1e1f27;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #14151a;
+    --bg-subtle: #1b1c22;
+    --text: #eceef2;
+    --text-muted: #9ba0ac;
+    --border: #2a2c34;
+    --accent: #8b85f6;
+    --accent-soft: #211f3a;
+    --code-bg: #1e1f27;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    max-width: 1120px;
+    margin: 0 auto;
+    min-height: 100vh;
+  }
+
+  header.top {
+    grid-column: 1 / -1;
+    border-bottom: 1px solid var(--border);
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 15px;
+  }
+
+  .brand .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .top a.gh {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    border: 1px solid var(--border);
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: border-color .15s ease, color .15s ease;
+  }
+  .top a.gh:hover { color: var(--text); border-color: var(--accent); }
+
+  nav.side {
+    padding: 28px 20px;
+    border-right: 1px solid var(--border);
+    align-self: start;
+    position: sticky;
+    top: 0;
+  }
+
+  nav.side .heading {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+
+  nav.side ul {
+    list-style: none;
+    margin: 0 0 22px;
+    padding: 0;
+  }
+
+  nav.side a {
+    display: block;
+    padding: 6px 0;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+  }
+  nav.side a:hover { color: var(--accent); }
+
+  main {
+    padding: 40px 32px 80px;
+    min-width: 0;
+  }
+
+  .eyebrow {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+
+  h1 {
+    font-size: 34px;
+    margin: 0 0 12px;
+    letter-spacing: -.02em;
+  }
+
+  .lede {
+    color: var(--text-muted);
+    font-size: 17px;
+    max-width: 640px;
+    margin: 0 0 36px;
+  }
+
+  section {
+    margin-bottom: 44px;
+    scroll-margin-top: 24px;
+  }
+
+  h2 {
+    font-size: 21px;
+    margin: 0 0 14px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+    padding-bottom: 0;
+  }
+  section:first-of-type h2 { border-top: none; padding-top: 0; }
+
+  h3 {
+    font-size: 16px;
+    margin: 20px 0 8px;
+  }
+
+  p { color: var(--text); }
+  p.muted { color: var(--text-muted); }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+    margin-top: 16px;
+  }
+
+  .card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    background: var(--bg-subtle);
+    box-shadow: var(--shadow);
+  }
+
+  .card h3 { margin-top: 0; font-size: 15px; }
+  .card p { color: var(--text-muted); font-size: 14px; margin: 0; }
+
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    overflow-x: auto;
+    font-size: 13.5px;
+  }
+
+  code {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    background: var(--code-bg);
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+  }
+  pre code { background: none; padding: 0; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  th, td {
+    text-align: left;
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  th { color: var(--text-muted); font-weight: 600; font-size: 13px; }
+
+  .callout {
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    background: var(--accent-soft);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: var(--text);
+  }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 24px 32px;
+    color: var(--text-muted);
+    font-size: 13px;
+    grid-column: 2;
+  }
+
+  @media (max-width: 760px) {
+    .layout { grid-template-columns: 1fr; }
+    nav.side { position: static; border-right: none; border-bottom: 1px solid var(--border); }
+    footer { grid-column: 1; }
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+
+  <header class="top">
+    <div class="brand"><span class="dot"></span> AI Agent Interview Page</div>
+    <a class="gh" href="https://github.com/jiangboq/ai-agent-interview-page" target="_blank" rel="noopener">View on GitHub ↗</a>
+  </header>
+
+  <nav class="side">
+    <div class="heading">Docs</div>
+    <ul>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#getting-started">Getting Started</a></li>
+      <li><a href="#structure">Project Structure</a></li>
+      <li><a href="#deployment">Deployment</a></li>
+      <li><a href="#roadmap">Roadmap</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <span class="eyebrow">Project Docs</span>
+    <h1>AI Agent Interview Page</h1>
+    <p class="lede">
+      Documentation for the <code>ai-agent-interview-page</code> project, hosted on GitHub Pages.
+      This page is served directly from the repository via GitHub Actions.
+    </p>
+
+    <section id="overview">
+      <h2>Overview</h2>
+      <p>
+        This project is a static, single-page site describing the goals, setup, and usage
+        of the AI Agent Interview Page. Replace the placeholder copy in each section below
+        with details specific to your project.
+      </p>
+      <div class="callout">
+        This is a starter documentation template — edit <code>index.html</code> to
+        fill in real project details, then commit and push to update the live page.
+      </div>
+    </section>
+
+    <section id="features">
+      <h2>Features</h2>
+      <div class="card-grid">
+        <div class="card">
+          <h3>Static &amp; fast</h3>
+          <p>Plain HTML/CSS, no build step required. Loads instantly on GitHub Pages.</p>
+        </div>
+        <div class="card">
+          <h3>Self-contained</h3>
+          <p>Single file with inline styles — easy to edit, easy to deploy.</p>
+        </div>
+        <div class="card">
+          <h3>Auto-deployed</h3>
+          <p>Pushes to <code>main</code> trigger a GitHub Actions workflow that publishes to Pages.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="getting-started">
+      <h2>Getting Started</h2>
+      <h3>Run locally</h3>
+      <pre><code>git clone https://github.com/jiangboq/ai-agent-interview-page.git
+cd ai-agent-interview-page
+open index.html   # or: python3 -m http.server 8000</code></pre>
+      <h3>Edit content</h3>
+      <p class="muted">Update the sections in <code>index.html</code>, then commit your changes.</p>
+      <pre><code>git add index.html
+git commit -m "Update docs"
+git push</code></pre>
+    </section>
+
+    <section id="structure">
+      <h2>Project Structure</h2>
+      <table>
+        <tr><th>Path</th><th>Purpose</th></tr>
+        <tr><td><code>index.html</code></td><td>The documentation page (this file)</td></tr>
+        <tr><td><code>.github/workflows/static.yml</code></td><td>GitHub Actions workflow that deploys the repo to Pages</td></tr>
+        <tr><td><code>README.md</code></td><td>Repo readme</td></tr>
+      </table>
+    </section>
+
+    <section id="deployment">
+      <h2>Deployment</h2>
+      <p>
+        This repo already includes a GitHub Actions workflow
+        (<code>.github/workflows/static.yml</code>) that deploys the entire repository
+        to GitHub Pages on every push to <code>main</code>.
+      </p>
+      <p class="muted">
+        To finish enabling it: in the repo, go to <strong>Settings → Pages</strong> and set
+        <strong>Source</strong> to <strong>GitHub Actions</strong>. After the next push to
+        <code>main</code>, the site will be live at
+        <code>https://jiangboq.github.io/ai-agent-interview-page/</code>.
+      </p>
+    </section>
+
+    <section id="roadmap">
+      <h2>Roadmap</h2>
+      <ul>
+        <li>Fill in real project overview and goals</li>
+        <li>Add usage examples / screenshots</li>
+        <li>Link related repos or resources</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>© 2026 AI Agent Interview Page. Built with plain HTML, hosted on GitHub Pages.</footer>
+</div>
+</body>
+</html>
