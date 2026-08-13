@@ -279,7 +279,17 @@
     <section id="overview">
       <h2>Overview</h2>
       <p>
-        AI Agent Interview System is an AI-powered interview platform built as a multi-service application. It combines a Next.js 14
+        The AI Interview System automates technical interviews end-to-end, replacing a recruiter's time-consuming phone
+  screen with an AI-conducted voice interview. Recruiters create a job posting and let the system parse the job description and
+  each candidate's resume, automatically scoring resume-to-job fit before an interview is even scheduled. When a candidate
+  proceeds, an AI voice agent — built on LiveKit for real-time audio — conducts a structured interview over a scripted template
+  (introduction, a deep dive into a resume project, behavioral questions, and an open Q&A), asking questions and adapting to the candidate's spoken responses in real time. Every turn of the conversation is
+  transcribed and logged, and once the interview ends, the system automatically evaluates the candidate against a multi-dimension scorecard with per-dimension scores, supporting evidence, and an overall hire/no-hire
+  recommendation — with historical scorecard embeddings used to calibrate scoring consistency across candidates. The result is
+  a self-serve pipeline recruiters can point candidates at, that handles scheduling, live interviewing, transcription, and
+  structured evaluation without a human interviewer needing to be present for the initial screen. </p>
+  <p>
+    AI Agent Interview System is an AI-powered interview platform built as a multi-service application. It combines a Next.js 14
   frontend (apps/web) with a FastAPI backend (apps/api) backed by Postgres (with pgvector) and MongoDB, plus a LiveKit 
   voice agent worker (services/voice-agent) that handles real-time voice interviews. LLM powers these features —
   resume/JD parsing, embeddings, and interview scoring. The whole stack is orchestrated via Docker Compose, with a 
