@@ -268,7 +268,7 @@
       <li><a href="#verview">Overview</a></li>
       <li><a href="#structure">Project Structure</a></li>
       <li><a href="#setup">Setup</a></li>
-      <li><a href="#architeture">Architeture</a></li>
+      <li><a href="#architecture">Architecture</a></li>
     </ul>
   </nav>
 
@@ -281,7 +281,7 @@
       <p>
         AI Agent Interview System is an AI-powered interview platform built as a multi-service application. It combines a Next.js 14
   frontend (apps/web) with a FastAPI backend (apps/api) backed by Postgres (with pgvector) and MongoDB, plus a LiveKit 
-  voice agent worker (services/voice-agent) that handles real-time voice interviews. OpenAI powers the AI features —
+  voice agent worker (services/voice-agent) that handles real-time voice interviews. LLM powers these features —
   resume/JD parsing, embeddings, and interview scoring. The whole stack is orchestrated via Docker Compose, with a 
   one-shot migration runner (infra/docker/postgres) that applies versioned Postgres schema migrations automatically
   before the API starts.
@@ -310,8 +310,8 @@
       </p>
     </section>
 
-    <section id="architeture">
-      <h2>Architeture</h2>
+    <section id="architecture">
+      <h2>Architecture</h2>
       <h3>Component Diagram</h3>
       <img src="src/docker-deployment.png" alt="Architecture component diagram" style="max-width: 100%; border: 1px solid var(--border); border-radius: 8px;" />
 
