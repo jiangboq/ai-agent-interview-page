@@ -267,7 +267,6 @@
     <ul>
       <li><a href="#overview">Overview</a></li>
       <li><a href="#features">Features</a></li>
-      <li><a href="#getting-started">Getting Started</a></li>
       <li><a href="#structure">Project Structure</a></li>
       <li><a href="#deployment">Deployment</a></li>
       <li><a href="#roadmap">Roadmap</a></li>
@@ -290,44 +289,17 @@
       </p>
     </section>
 
-    <section id="features">
-      <h2>Features</h2>
-      <div class="card-grid">
-        <div class="card">
-          <h3>Static &amp; fast</h3>
-          <p>Plain HTML/CSS, no build step required. Loads instantly on GitHub Pages.</p>
-        </div>
-        <div class="card">
-          <h3>Self-contained</h3>
-          <p>Single file with inline styles — easy to edit, easy to deploy.</p>
-        </div>
-        <div class="card">
-          <h3>Auto-deployed</h3>
-          <p>Pushes to <code>main</code> trigger a GitHub Actions workflow that publishes to Pages.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="getting-started">
-      <h2>Getting Started</h2>
-      <h3>Run locally</h3>
-      <pre><code>git clone https://github.com/jiangboq/ai-agent-interview-page.git
-cd ai-agent-interview-page
-open index.html   # or: python3 -m http.server 8000</code></pre>
-      <h3>Edit content</h3>
-      <p class="muted">Update the sections in <code>index.html</code>, then commit your changes.</p>
-      <pre><code>git add index.html
-git commit -m "Update docs"
-git push</code></pre>
-    </section>
-
     <section id="structure">
       <h2>Project Structure</h2>
       <table>
-        <tr><th>Path</th><th>Purpose</th></tr>
-        <tr><td><code>index.html</code></td><td>The documentation page (this file)</td></tr>
-        <tr><td><code>.github/workflows/static.yml</code></td><td>GitHub Actions workflow that deploys the repo to Pages</td></tr>
-        <tr><td><code>README.md</code></td><td>Repo readme</td></tr>
+        <tr><th>Component</th><th>Path</th><th>Description</th></tr>
+        <tr><td><code>web</code></td><td><code>apps/web</code></td><td>Next.js 14 frontend</td></tr>
+        <tr><td><code>api</code></td><td><code>apps/api</code></td><td>FastAPI backend (Postgres + Mongo)</td></tr>
+        <tr><td><code>voice-agent</code></td><td><code>services/voice-agent</code></td><td>LiveKit voice agent worker</td></tr>
+        <tr><td><code>migrate</code></td><td><code>infra/docker/postgres</code></td><td>One-shot Postgres migration runner (runs before <code>api</code>)</td></tr>
+        <tr><td><code>postgres</code></td><td>&mdash;</td><td>Primary relational store (pgvector)</td></tr>
+        <tr><td><code>mongo</code></td><td>&mdash;</td><td>Transcript/log storage</td></tr>
+        <tr><td><code>livekit</code></td><td>&mdash;</td><td>Real-time media server for interview calls</td></tr>
       </table>
     </section>
 
