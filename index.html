@@ -288,14 +288,6 @@
   recommendation — with historical scorecard embeddings used to calibrate scoring consistency across candidates. The result is
   a self-serve pipeline recruiters can point candidates at, that handles scheduling, live interviewing, transcription, and
   structured evaluation without a human interviewer needing to be present for the initial screen. </p>
-  <p>
-    AI Agent Interview System is an AI-powered interview platform built as a multi-service application. It combines a Next.js 14
-  frontend (apps/web) with a FastAPI backend (apps/api) backed by Postgres (with pgvector) and MongoDB, plus a LiveKit 
-  voice agent worker (services/voice-agent) that handles real-time voice interviews. LLM powers these features —
-  resume/JD parsing, embeddings, and interview scoring. The whole stack is orchestrated via Docker Compose, with a 
-  one-shot migration runner (infra/docker/postgres) that applies versioned Postgres schema migrations automatically
-  before the API starts.
-      </p>
     </section>
 
     <section id="structure">
@@ -322,7 +314,14 @@
 
     <section id="architecture">
       <h2>Architecture</h2>
-      <h3>Component Diagram</h3>
+      <h3>Components</h3>
+      <p>
+    It combines a Next.js 14 frontend (apps/web) with a FastAPI backend (apps/api) backed by Postgres (with pgvector) and MongoDB, plus a LiveKit 
+  voice agent worker (services/voice-agent) that handles real-time voice interviews. LLM powers these features —
+  resume/JD parsing, embeddings, and interview scoring. The whole stack is orchestrated via Docker Compose, with a 
+  one-shot migration runner (infra/docker/postgres) that applies versioned Postgres schema migrations automatically
+  before the API starts.
+      </p>
       <img src="src/docker-deployment.png" alt="Architecture component diagram" style="max-width: 100%; border: 1px solid var(--border); border-radius: 8px;" />
 
       <h3>Storage</h3>
@@ -333,7 +332,7 @@
   (DB_POOL_ACQUIRE_RETRY_INTERVAL) until either a connection is available or DB_POOL_ACQUIRE_TIMEOUT elapses, at which
   point the PoolError propagates. get_db() is a context manager and the intended entry point for all DB access.</p>
       <img src="src/database-erd.png" alt="Database schema ERD" style="max-width: 100%; border: 1px solid var(--border); border-radius: 8px;" />
-      <img src="/src/db-pool-config-table.png" alt="Database pool config" style="max-width: 100%; border: 1px solid var(--border); border-radius: 8px;">
+      <img src="src/db-pool-config-table.png" alt="Database pool config" style="max-width: 100%; border: 1px solid var(--border); border-radius: 8px;">
     </section>
   </main>
 
