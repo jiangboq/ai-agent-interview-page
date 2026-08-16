@@ -327,7 +327,13 @@
 
       <h3>Storage</h3>
       <p>The system uses hybrid DB System: PostgreSQL as the system of record for structured/relational data and MongoDB for interview transcripts. </p>
+      <p>There is a shared PostgreSQL connection pool for the API process, which is built on psycopg2.pool.ThreadedConnectionPool. init_pool() lazily creates the module-level ThreadedConnectionPool on first use and returns it and the subsequent calls
+  returns the same instance. close_pool() closes all pooled connections and clears the module-level reference. psycopg2's pool.getconn() raises PoolError immediately if the pool is exhausted, rather than blocking. _acquire()
+  smooths over short request bursts above DB_POOL_MAX_SIZE by retrying getconn() every 50ms
+  (DB_POOL_ACQUIRE_RETRY_INTERVAL) until either a connection is available or DB_POOL_ACQUIRE_TIMEOUT elapses, at which
+  point the PoolError propagates. get_db() is a context manager and the intended entry point for all DB access.</p>
       <img src="src/database-erd.png" alt="Database schema ERD" style="max-width: 100%; border: 1px solid var(--border); border-radius: 8px;" />
+      <img src="/src/db-pool-config-table.png" alt="Database pool config" style="max-width: 100%; border: 1px solid var(--border); border-radius: 8px;">
     </section>
   </main>
 
