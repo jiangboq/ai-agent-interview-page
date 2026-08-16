@@ -332,7 +332,12 @@
   (DB_POOL_ACQUIRE_RETRY_INTERVAL) until either a connection is available or DB_POOL_ACQUIRE_TIMEOUT elapses, at which
   point the PoolError propagates. get_db() is a context manager and the intended entry point for all DB access.</p>
       <img src="src/database-erd.png" alt="Database schema ERD" style="max-width: 100%; border: 1px solid var(--border); border-radius: 8px;" />
-      <img src="src/db-pool-config-table.png" alt="Database pool config" style="max-width: 100%; border: 1px solid var(--border); border-radius: 8px;">
+      <img src="src/db-pool-config-table.png" alt="Database pool config" style="max-width: 100%; border: 1px solid var(--border); border-radius: 8px;" />
+      <p>MongoDB stores interview conversation transcripts — the append-only log of turns exchanged between interviewer and
+  candidate during a session. Everything lives in apps/api/mongo.py (client/connection) and apps/api/dao/transcripts.py. MONGO_URL env var configures the connection (default mongodb://localhost:27017).
+  get_mongo_db() lazily creates a single module-level MongoClient on first call and reuses it for the life of the process (the client itself is thread-safe and pools connections internally, so there's no separate pool wrapper like
+  the Postgres side has). It always returns the interview database. </p>
+      <img src="src/mongo-usage-diagram.png" alt="Mongo usage" style="max-width: 100%; border: 1px solid var(--border); border-radius: 8px;"/>
     </section>
   </main>
 
