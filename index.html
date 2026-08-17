@@ -274,7 +274,7 @@
 
   <main>
     <span class="eyebrow">Project Docs</span>
-    <h1>AI Agent Interview Technical Documentation</h1>
+    <h1>The design of AI Agent Interview System</h1>
 
     <section id="overview">
       <h2>Overview</h2>
@@ -339,6 +339,11 @@
   the Postgres side has). It always returns the interview database. </p>
       <img src="src/mongo-usage-diagram.png" alt="Mongo usage" style="max-width: 100%; border: 1px solid var(--border); border-radius: 8px;"/>
     </section>
+    <h3>Services</h3>
+    <h4>Resume Parser</h4>
+    <p>When a resume is uploaded, there are synchronous flows for validation, storing (S3 or local), inserting resume_blobs record with pending status. After that, there is an asynchronous process that contains extracting text, scrubbing PII data, 
+  parsing the resume using LLM</p>
+    <img src="src/resume-upload-parse-flow.png" alt="Resume upload parse flow" style="max-width: 100%; border: 1px solid var(--border); border-radius: 8px;"/>
   </main>
 
   <footer>© 2026 AI Agent Interview Page. Built with plain HTML, hosted on GitHub Pages.</footer>
