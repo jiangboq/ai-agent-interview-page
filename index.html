@@ -348,6 +348,11 @@
     <p>Livekit provides a STT-LLM-TTS pipeline for speech recognition, language understanding, and speech synthesis. The voice agent (services/voice-agent/agent.py) is built on LiveKit agents, which wires together speech-to-text(STT), an
   LLM, and text-to-speech(TTS) into a single AgentSession. The pipeline is assembled once per interview, inside
   interview_agent().</p>
+    <p>The pipeline doesn't just produce audio — every resolved conversation turn (both STT output and LLM output) fires a
+  conversation_item_added event, which the agent forwards to the main API's POST /api/transcripts/{interview_id}/turns
+  endpoint, tagging each turn with the current interview section. This is the same transcript store documented in the
+  MongoDB usage doc.</p>
+    <img src="src/voice-agent-architecture.png" alt="Voice agent architecture" style="max-width: 100%; border: 1px solid var(--border); border-radius: 8px;"/>
   </main>
 
   <footer>© 2026 AI Agent Interview Page. Built with plain HTML, hosted on GitHub Pages.</footer>
