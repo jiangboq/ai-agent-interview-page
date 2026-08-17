@@ -367,7 +367,10 @@
     <p>Interview scoring augments each evaluation with retrieved context from similarly-scored past candidates for the same 
   job, so scores stay calibrated and consistent across candidates rather than drifting interview to interview. The main parts are in apps/api/service/interviews.py (orchestration), service/interview_scorer.py (generation),
   service/embeddings.py (embedding), and dao/scorecard_embeddings.py (vector store)</p>
-    <img src="src/rag-evaluation-flow.png" alt="RAG evaluation flow" style="max-width: 100%; border: 1px solid var(--border); border-radius: 8px;"/>
+  <p><i>Trigger:</i> When the voice agent's LiveKit job shuts down, it calls POST /api/interviews/{interview_id}/end, which schedules
+  interviews_service.score_interview(interview_id) as a FastAPI background task — scoring happens asynchronously after
+  the interview ends.</p>  
+  <img src="src/rag-evaluation-flow.png" alt="RAG evaluation flow" style="max-width: 100%; border: 1px solid var(--border); border-radius: 8px;"/>
   </main>
 
   <footer>© 2026 AI Agent Interview Page. Built with plain HTML, hosted on GitHub Pages.</footer>
