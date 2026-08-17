@@ -340,9 +340,9 @@
       <img src="src/mongo-usage-diagram.png" alt="Mongo usage" style="max-width: 100%; border: 1px solid var(--border); border-radius: 8px;"/>
     </section>
     <h3>Services</h3>
-    <h4>Resume Parser</h4>
+    <h4><em>Resume Parser</em></h4>
     <p>When a resume is uploaded, there are synchronous flows for validation, storing (S3 or local), inserting resume_blobs record with pending status. After that, there is an asynchronous process that contains extracting text, scrubbing PII data, 
-  parsing the resume using LLM</p>
+  parsing the resume using LLM.</p>
     <img src="src/resume-upload-parse-flow.png" alt="Resume upload parse flow" style="max-width: 100%; border: 1px solid var(--border); border-radius: 8px;"/>
   </main>
 
