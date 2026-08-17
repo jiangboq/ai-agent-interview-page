@@ -355,6 +355,10 @@
     <p>The interview is modeled as a finite state machine over four states — IntroAgent → ProjectAgent → BehavioralAgent → 
   QAAgent, where each state is a LiveKit Agent subclass with its own system instructions, and QAAgent is the terminal
   state. The state base class is SectionAgent and all four states inherit from SectionAgent, which factors out the behavior common to every section. </p>
+    <p>There are two independent ways, LLM-driven and Watchdog-driven, to switch the states in FSM. Each non-terminal state exposes an advance_section function tool that the LLM can
+  call once it judges the section is naturally complete (e.g. "the candidate has given a sufficient self-introduction"). Calling it returns the next SectionAgent instance, which LiveKit swaps in as the active agent. This is an expected path. The watch dog enforces the section's budget_sec regardless of what the LLM decides. It will sleep until NUDGE_FRACTION (80%) of the budget has elapsed, then injects a system nudge ("you're approaching the
+  time limit... wrap up") so the LLM steers toward wrapping up on its own. Then it sleeps the remaining 20% of the budget. If still in the same state, it forces to call _next_agent() and
+  hands the session to it directly via session.update_agent(). If there's no next agent (e.g. QAAgent timed out), it instead prompts the LLM to close out the interview</p>
     <img src="src/fsm-state-transition-table.png" alt="FSM state transaction table", style="max-width: 100%; border: 1px solid var(--border); border-radius: 8px;"/>  
 </main>
 
