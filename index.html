@@ -344,7 +344,7 @@
     <p>When a resume is uploaded, there are synchronous flows for validation, storing (S3 or local), inserting resume_blobs record with pending status. After that, there is an asynchronous process that contains extracting text, scrubbing PII data, 
   parsing the resume using LLM.</p>
     <img src="src/resume-upload-parse-flow.png" alt="Resume upload parse flow" style="max-width: 100%; border: 1px solid var(--border); border-radius: 8px;"/>
-    <em>Voice Agent</em>
+    <em>Voice Agent Orchestration</em>
     <p>Livekit provides a STT-LLM-TTS pipeline for speech recognition, language understanding, and speech synthesis. The voice agent (services/voice-agent/agent.py) is built on LiveKit agents, which wires together speech-to-text(STT), an
   LLM, and text-to-speech(TTS) into a single AgentSession. The pipeline is assembled once per interview, inside
   interview_agent().</p>
@@ -359,8 +359,16 @@
   call once it judges the section is naturally complete (e.g. "the candidate has given a sufficient self-introduction"). Calling it returns the next SectionAgent instance, which LiveKit swaps in as the active agent. This is an expected path. The watch dog enforces the section's budget_sec regardless of what the LLM decides. It will sleep until NUDGE_FRACTION (80%) of the budget has elapsed, then injects a system nudge ("you're approaching the
   time limit... wrap up") so the LLM steers toward wrapping up on its own. Then it sleeps the remaining 20% of the budget. If still in the same state, it forces to call _next_agent() and
   hands the session to it directly via session.update_agent(). If there's no next agent (e.g. QAAgent timed out), it instead prompts the LLM to close out the interview</p>
+    <p>The FSM doesn't carry state on the agent instances themselves. Instead, shared context (interview_id, candidate_name, job_title, resume, expected_duration,
+  current_section, section_started_at) lives on a single InterviewState dataclass stored as AgentSession.userdata, which
+  every state reads via self.session.userdata.</p>
     <img src="src/fsm-state-transition-table.png" alt="FSM state transaction table", style="max-width: 100%; border: 1px solid var(--border); border-radius: 8px;"/>  
-</main>
+    <em>Evaluation Pipeline via RAG</em>
+    <p>Interview scoring augments each evaluation with retrieved context from similarly-scored past candidates for the same 
+  job, so scores stay calibrated and consistent across candidates rather than drifting interview to interview. The main parts are in apps/api/service/interviews.py (orchestration), service/interview_scorer.py (generation),
+  service/embeddings.py (embedding), and dao/scorecard_embeddings.py (vector store)</p>
+    <img src="src/rag-evaluation-flow.png" alt="RAG evaluation flow" style="max-width: 100%; border: 1px solid var(--border); border-radius: 8px;"/>
+  </main>
 
   <footer>© 2026 AI Agent Interview Page. Built with plain HTML, hosted on GitHub Pages.</footer>
 </div>
