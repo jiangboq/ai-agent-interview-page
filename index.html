@@ -352,7 +352,7 @@
   conversation_item_added event, which the agent forwards to the main API's POST /api/transcripts/{interview_id}/turns
   endpoint, tagging each turn with the current interview section and persisting the trancscipt in Mongo</p>
     <img src="src/voice-agent-architecture.png" alt="Voice agent architecture" style="max-width: 100%; border: 1px solid var(--border); border-radius: 8px;"/>
-    <p>The interview is modeled as a finite state machine over four states — IntroAgent → ProjectAgent → BehavioralAgent → 
+    <p>The interview is divided into for parts self-introduction(10%), project(40%), behavioral(30%), Q&A(20%) and it is modeled as a finite state machine over four states — IntroAgent → ProjectAgent → BehavioralAgent → 
   QAAgent, where each state is a LiveKit Agent subclass with its own system instructions, and QAAgent is the terminal
   state. The state base class is SectionAgent and all four states inherit from SectionAgent, which factors out the behavior common to every section. </p>
     <p>There are two independent ways, LLM-driven and Watchdog-driven, to switch the states in FSM. Each non-terminal state exposes an advance_section function tool that the LLM can
