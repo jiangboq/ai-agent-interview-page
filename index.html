@@ -370,6 +370,11 @@
   <p><i>Trigger:</i> When the voice agent's LiveKit job shuts down, it calls POST /api/interviews/{interview_id}/end, which schedules
   interviews_service.score_interview(interview_id) as a FastAPI background task — scoring happens asynchronously after
   the interview ends.</p>  
+  <p><i>Retrieval:</i> _fetch_calibration_scorecards(turns, job_id) turns the interview transcripts into one text blob and
+  embeds it with text-embedding-3-small. Then runs a similarity search against scorecard_embeddings (Postgres + pgvector), and returns the top RAG_CALIBRATION_K (default 3) most similar past candidates' scorecards</p>
+  <p><i>Generation:</i> interview_scorer.score_interview builds a prompt with three parts: a system instruction, a past_candidates block rendering the retrieved
+  scorecards, and a transcript block with the current interview. Then it calls the LLM with a strict JSON-schema response format, producing a
+  ScoreCard: overall_score, recommendation, summary, strengths, concerns.</p>
   <img src="src/rag-evaluation-flow.png" alt="RAG evaluation flow" style="max-width: 100%; border: 1px solid var(--border); border-radius: 8px;"/>
   </main>
 
